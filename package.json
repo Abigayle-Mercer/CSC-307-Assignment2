@@ -10,6 +10,8 @@
   "license": "ISC",
   "workspaces": [
     "packages/*"
-  ]
-  
+  ],
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
