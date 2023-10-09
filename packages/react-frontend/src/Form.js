@@ -3,24 +3,26 @@ import React, { useState } from "react";
 
 function Form(props) {
     function handleChange(event) {
-      const { name, value } = event.target;
+      const { id, name, value } = event.target;
       if (name === "job") setPerson({ name: person["name"], job: value });
       else setPerson({ name: value, job: person["job"] });
     }
 
     function submitForm() {
       props.handleSubmit(person);
-      setPerson({ name: "", job: "" });
+      setPerson({ id: "", name: "", job: "" });
     }
 
 
   const [person, setPerson] = useState({
+    id: "",
     name: "",
     job: "",
   });
 
   return (
     <form>
+      
       <label htmlFor="name">Name</label>
       <input
         type="text"
@@ -33,6 +35,7 @@ function Form(props) {
       <input
         type="text"
         name="job"
+
         id="job"
         value={person.job}
         onChange={handleChange}

@@ -101,16 +101,37 @@ app.delete("/users/:id", (req, res) => {
   }
 });
 
+const generateRandomID = () => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const numbers = 
+    "0123456789";
+  let randomID = "";
+  for (let i = 0; i < 3; i++) {
+    randomID += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+  for (let i = 0; i < 3; i++) {
+    randomID += numbers.charAt(
+      Math.floor(Math.random() * numbers.length)
+    );
+  }
+  return randomID;
+};
 
 
 const addUser = (user) => {
+  const randomID = generateRandomID();
+  user['id'] = randomID; // Assign the generated ID to the new user object
   users["users_list"].push(user);
   return user;
 };
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  res.send(addUser(userToAdd));
+  const addedUser = addUser(userToAdd); // Get the added user with the assigned ID
+  res.status(201).json(addedUser); // Return a 201 status code and the added user
 });
 
 app.listen(port, () => {
